@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "description": "CND Zapier App",
   "repository": "https://git-codecommit.ap-southeast-2.amazonaws.com/v1/repos/cnd-zapier",
-  "homepage": "",
   "author": "Hagen Dittmer <hagen.dittmer@gmail.com>",
   "license": "ISC",
   "main": "index.js",
