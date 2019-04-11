@@ -1,0 +1,27 @@
+{
+  "name": "cnd-zapier",
+  "version": "0.0.1",
+  "description": "CND Zapier App",
+  "repository": "https://git-codecommit.ap-southeast-2.amazonaws.com/v1/repos/cnd-zapier",
+  "homepage": "",
+  "author": "Hagen Dittmer <hagen.dittmer@gmail.com>",
+  "license": "ISC",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --recursive"
+  },
+  "engines": {
+    "node": "8.10.0",
+    "npm": ">=5.6.0"
+  },
+  "dependencies": {
+    "lodash": "^4.17.11",
+    "moment": "^2.24.0",
+    "moment-timezone": "^0.5.23",
+    "zapier-platform-core": "8.0.1"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0",
+    "should": "^13.2.3"
+  }
+}
