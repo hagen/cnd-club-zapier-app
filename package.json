@@ -7,7 +7,8 @@
   "license": "ISC",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --recursive"
+    "test": "mocha --recursive",
+    "deploy": "node ./node_modules/zapier-platform-core push"
   },
   "engines": {
     "node": "8.10.0",
@@ -17,7 +18,7 @@
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.23",
-    "zapier-platform-core": "^8.4.2"
+    "zapier-platform-core": "8.4.2"
   },
   "devDependencies": {
     "mocha": "^5.2.0",
