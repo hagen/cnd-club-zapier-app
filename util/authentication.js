@@ -6,7 +6,7 @@
 const getSessionKey = (z, bundle) => {
   const promise = z.request({
     method: 'POST',
-    url: 'https://www.carnextdoor.com.au/api/v1/auth',
+    url: 'https://www.carnextdoor.com.au/api/v2/auth',
     body: {
       email: bundle.authData.email,
       password: bundle.authData.password
@@ -17,14 +17,14 @@ const getSessionKey = (z, bundle) => {
     if (response.status === 401) {
       throw new Error('The email/password you supplied is invalid');
     }
+    if (response.status === 404) {
+      throw new Error('CND API has changed again - contact App author');
+    }
     return {
       sessionKey: z.JSON.parse(response.content).auth.token
     };
   });
 };
-
-
-
 
 /**
  * Session auth config
@@ -32,7 +32,7 @@ const getSessionKey = (z, bundle) => {
 const authentication = {
   type: 'session',
   test: {
-    url: 'https://www.carnextdoor.com.au/api/v1/vehicles'
+    url: 'https://www.carnextdoor.com.au/api/v2/cars'
   },
   fields: [
     {
@@ -48,7 +48,7 @@ const authentication = {
       helpText: 'Your login password.'
     }
   ],
-  
+
   sessionConfig: {
     perform: getSessionKey
   },
@@ -57,13 +57,9 @@ const authentication = {
     if (bundle.authData.email) {
       return bundle.authData.email;
     }
-    return 'Car Next Door'
+    return 'Car Next Door';
   }
 };
-
-
-
-
 
 /**
  * Adds session Id to req header, if we have a session key in the
@@ -79,10 +75,6 @@ const includeSessionKeyHeader = (request, z, bundle) => {
   }
   return request;
 };
-
-
-
-
 
 /**
  * Checks if a 401 was returned. If so, flags Refresh of auth required.
@@ -100,12 +92,8 @@ const sessionRefreshIf401 = (response, z, bundle) => {
   return response;
 };
 
-
-
-
-
 module.exports = {
   authentication,
   includeSessionKeyHeader,
   sessionRefreshIf401
-}
+};

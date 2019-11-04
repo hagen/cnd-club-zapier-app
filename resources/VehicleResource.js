@@ -1,28 +1,24 @@
-const { pick } = require('lodash');
+const {pick} = require('lodash');
 /**
  * List all cars of the member.
  * @param {Zapier} z Zapier utils
  */
-async function listVehicles(z) {
+async function listCars(z) {
   const requestOptions = {
-    url: `https://www.carnextdoor.com.au/api/v1/vehicles`,
-    method: 'GET',
-  }
-  return z.request(requestOptions)
-    .then((response) => z.JSON.parse(response.content).vehicles)
-    .then(vehicles => vehicles.map(vehicle => pick(vehicle, [
-      'id',
-      'make',
-      'model',
-      'plate'
-    ])))
-    .then(vehicles => vehicles.map(vehicle => ({
-      ...vehicle,
-      name: `${vehicle.make} ${vehicle.model} (${vehicle.plate})`
-    })));
+    url: `https://www.carnextdoor.com.au/api/v2/cars`,
+    method: 'GET'
+  };
+  return z
+    .request(requestOptions)
+    .then(response => z.JSON.parse(response.content).cars)
+    .then(cars => cars.map(car => pick(car, ['id', 'make', 'model', 'plate'])))
+    .then(cars =>
+      cars.map(car => ({
+        ...car,
+        name: `${car.make} ${car.model} (${car.plate})`
+      }))
+    );
 }
-
-
 
 const vehicle = {
   key: 'vehicleResource',
@@ -30,11 +26,11 @@ const vehicle = {
   list: {
     display: {
       hidden: true,
-      label: 'Vehicles',
-      description: 'Your registered vehicle'
+      label: 'Cars',
+      description: 'Your registered car'
     },
     operation: {
-      perform: listVehicles,
+      perform: listCars,
       sample: {
         id: 1,
         make: `Toyota`,
