@@ -4,11 +4,13 @@ const moment = require('moment');
  * @param {Zapier} z Zapier utils
  * @param {Object} bundle Zap bundle
  */
-function listBookings(z, bundle) {  
+function listBookings(z, bundle) {
   const params = {
     start: moment().format('YYYY-MM-DD'),
-    end: moment().add(1, 'month').format('YYYY-MM-DD'),
-    type: 'reservation'
+    end: moment()
+      .add(1, 'month')
+      .format('YYYY-MM-DD'),
+    type: 'trip'
   };
   if (bundle.inputData.vehicle_id) {
     params.vehicle_id = bundle.inputData.vehicle_id;
@@ -22,8 +24,9 @@ function listBookings(z, bundle) {
   };
 
   // You may return a promise or a normal data structure from any perform method.
-  return z.request(requestOptions)
-    .then((response) => z.JSON.parse(response.content));
+  return z
+    .request(requestOptions)
+    .then(response => z.JSON.parse(response.content));
 }
 
 // We recommend writing your triggers separate like this and rolling them
@@ -51,24 +54,24 @@ module.exports = {
     perform: listBookings,
 
     sample: {
-      "id": 91919191,
-      "start_at": "2019-04-03T09:30:00",
-      "end_at": "2019-04-03T13:15:00",
-      "type": "reservation",
-      "reservation": {
-        "member": {
-            "email": "borrower@email.com",
-            "mobile": "+61411222333",
-            "name": "Borrower Betty"
+      id: 91919191,
+      start_at: '2019-04-03T09:30:00',
+      end_at: '2019-04-03T13:15:00',
+      type: 'trip',
+      trip: {
+        member: {
+          email: 'borrower@email.com',
+          mobile: '+61411222333',
+          name: 'Borrower Betty'
         }
       }
     },
     outputFields: [
-      { key: 'id', label: 'ID' },
-      { key: 'start_at', label: 'Starts at' },
-      { key: 'end_at', label: 'Ends at' },
-      { key: 'type', label: 'Booking type' },
-      { key: 'reservation', label: 'Reservation' }
+      {key: 'id', label: 'ID'},
+      {key: 'start_at', label: 'Starts at'},
+      {key: 'end_at', label: 'Ends at'},
+      {key: 'type', label: 'Booking type'},
+      {key: 'trip', label: 'Trip'}
     ]
   }
 };
