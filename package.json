@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "lodash": "^4.17.15",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "moment-timezone": "^0.5.23",
     "zapier-platform-core": "8.4.2"
   },
